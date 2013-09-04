@@ -1,0 +1,485 @@
+
+<?php
+
+require_once dirname(__FILE__)."/../src/phpfreechat.class.php";
+$params = array();
+$params["serverid"]       = md5(__FILE__); // calculate a unique id for this chat
+$params["title"]          = "A simple chat with user's parameters";
+$params["nick"]           = "guest";  // setup the intitial nickname
+$params["frozen_nick"]    = true;     // do not allow to change the nickname
+$params["shownotice"]     = 0;        // 0 = nothing, 1 = just nickname changes, 2 = connect/quit, 3 = nick + connect/quit
+$params["max_nick_len"]   = 20;       // nickname length could not be longer than 10 caracteres
+$params["max_text_len"]   = 300;      // a message cannot be longer than 50 caracteres
+$params["max_channels"]   = 3;        // limit the number of joined channels tab to 3
+$params["max_privmsg"]    = 1;        // limit the number of private message tab to 1
+$params["refresh_delay"]  = 10000;    // chat refresh speed is 10 secondes (10000ms)
+$params["max_msg"]        = 15;       // max message in the history is 15 (message seen when reloading the chat)
+$params["height"]         = "230px";  // height of chat area is 230px
+$params["debug"]          = true;     // activate debug console
+$params["connect_at_startup"] = false;
+$params["start_minimized"]    = true;
+$params["nickmarker"]     = false;
+$params["clock"]          = false;
+//$params["data_private_path"] = "/dev/shm/mychat"; // specify a special directory to write data on a tmpfs ramdisk (only work on linux)
+
+$chat = new phpFreeChat( $params );
+
+?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>phpFreeChat demo</title>
+
+    <?php $chat->printJavascript(); ?>
+    <?php $chat->printStyle(); ?>
+
+  </head>
+
+  <body>
+
+  <?php $chat->printChat(); ?>
+
+<?php
+  // print the current file
+  echo "<h2>The source code</h2>";
+  $filename = __FILE__;
+  echo "<p><code>".$filename."</code></p>";
+  echo "<pre style=\"margin: 0 50px 0 50px; padding: 10px; background-color: #DDD;\">";
+  $content = file_get_contents($filename);
+  highlight_string($content);
+  echo "</pre>";
+?>
+
+<?php
+  echo "<h2>Debug</h2>";
+  echo "<pre>";
+  $c =& pfcGlobalConfig::Instance();
+  print_r($c);
+  print_r($_SERVER);
+  echo "</pre>";
+?>
+
+  </body>
+</html>
+
+Debug
+
+pfcGlobalConfig Object
+(
+    [serverid] => 9f9e0d11a6103c1b51ac75b42d39a752
+    [language] => 
+    [output_encoding] => UTF-8
+    [nick] => guest
+    [max_nick_len] => 20
+    [frozen_nick] => 1
+    [nickmeta] => Array
+        (
+        )
+
+    [nickmeta_private] => Array
+        (
+            [0] => ip
+        )
+
+    [nickmeta_key_to_hide] => Array
+        (
+        )
+
+    [isadmin] => 
+    [admins] => Array
+        (
+            [admin] => 
+        )
+
+    [firstisadmin] => 
+    [title] => A simple chat with user's parameters
+    [channels] => Array
+        (
+            [0] => My room
+        )
+
+    [frozen_channels] => Array
+        (
+        )
+
+    [max_channels] => 3
+    [privmsg] => Array
+        (
+        )
+
+    [max_privmsg] => 1
+    [refresh_delay] => 10000
+    [refresh_delay_steps] => Array
+        (
+            [0] => 2000
+            [1] => 20000
+            [2] => 3000
+            [3] => 30000
+            [4] => 5000
+            [5] => 60000
+            [6] => 8000
+            [7] => 300000
+            [8] => 15000
+            [9] => 600000
+            [10] => 30000
+        )
+
+    [timeout] => 35000
+    [islocked] => 
+    [lockurl] => http://www.phpfreechat.net
+    [skip_proxies] => Array
+        (
+        )
+
+    [post_proxies] => Array
+        (
+        )
+
+    [pre_proxies] => Array
+        (
+        )
+
+    [proxies_cfg] => Array
+        (
+            [auth] => Array
+                (
+                )
+
+            [noflood] => Array
+                (
+                    [charlimit] => 450
+                    [msglimit] => 10
+                    [delay] => 5
+                )
+
+            [censor] => Array
+                (
+                    [words] => Array
+                        (
+                            [0] => fuck
+                            [1] => sex
+                            [2] => bitch
+                        )
+
+                    [replaceby] => *
+                    [regex] => 
+                )
+
+            [log] => Array
+                (
+                    [path] => 
+                )
+
+        )
+
+    [proxies_path] => /var/www/vhosts/speaking24.com/httpdocs/phpfreechat/src/proxies
+    [proxies_path_default] => /var/www/vhosts/speaking24.com/httpdocs/phpfreechat/src/proxies
+    [cmd_path] => /var/www/vhosts/speaking24.com/httpdocs/phpfreechat/src/commands
+    [cmd_path_default] => /var/www/vhosts/speaking24.com/httpdocs/phpfreechat/src/commands
+    [max_text_len] => 300
+    [max_msg] => 15
+    [max_displayed_lines] => 150
+    [quit_on_closedwindow] => 1
+    [focus_on_connect] => 1
+    [connect_at_startup] => 
+    [start_minimized] => 1
+    [height] => 230px
+    [shownotice] => 0
+    [nickmarker] => 
+    [clock] => 
+    [startwithsound] => 1
+    [openlinknewwindow] => 1
+    [notify_window] => 1
+    [short_url] => 1
+    [short_url_width] => 40
+    [display_ping] => 1
+    [display_pfc_logo] => 1
+    [displaytabimage] => 1
+    [displaytabclosebutton] => 1
+    [showwhosonline] => 1
+    [showsmileys] => 1
+    [btn_sh_whosonline] => 1
+    [btn_sh_smileys] => 1
+    [bbcode_colorlist] => Array
+        (
+            [0] => #FFFFFF
+            [1] => #000000
+            [2] => #000055
+            [3] => #008000
+            [4] => #FF0000
+            [5] => #800000
+            [6] => #800080
+            [7] => #FF5500
+            [8] => #FFFF00
+            [9] => #00FF00
+            [10] => #008080
+            [11] => #00FFFF
+            [12] => #0000FF
+            [13] => #FF00FF
+            [14] => #7F7F7F
+            [15] => #D2D2D2
+        )
+
+    [nickname_colorlist] => Array
+        (
+            [0] => #CCCCCC
+            [1] => #000000
+            [2] => #3636B2
+            [3] => #2A8C2A
+            [4] => #C33B3B
+            [5] => #C73232
+            [6] => #80267F
+            [7] => #66361F
+            [8] => #D9A641
+            [9] => #3DCC3D
+            [10] => #1A5555
+            [11] => #2F8C74
+            [12] => #4545E6
+            [13] => #B037B0
+            [14] => #4C4C4C
+            [15] => #959595
+        )
+
+    [theme] => default
+    [theme_path] => /var/www/vhosts/speaking24.com/httpdocs/phpfreechat/src/../themes
+    [theme_url] => ../data/public/themes
+    [theme_default_path] => /var/www/vhosts/speaking24.com/httpdocs/phpfreechat/src/../themes
+    [theme_default_url] => ../data/public/themes
+    [container_type] => File
+    [server_script_path] => /var/www/vhosts/speaking24.com/httpdocs/phpfreechat/demo/demo2_simple_with_params.php
+    [server_script_url] => ./demo2_simple_with_params.php
+    [client_script_path] => /var/www/vhosts/speaking24.com/httpdocs/phpfreechat/demo/demo2_simple_with_params.php
+    [data_private_path] => /var/www/vhosts/speaking24.com/httpdocs/phpfreechat/src/../data/private
+    [data_public_path] => /var/www/vhosts/speaking24.com/httpdocs/phpfreechat/src/../data/public
+    [data_public_url] => ../data/public
+    [prototypejs_url] => ../data/public/js/prototype.js
+    [debug] => 1
+    [time_offset] => 0
+    [date_format] => d/m/Y
+    [time_format] => H:i:s
+    [get_ip_from_xforwardedfor] => 
+    [dyn_params] => Array
+        (
+        )
+
+    [proxies] => Array
+        (
+            [0] => lock
+            [1] => checktimeout
+            [2] => checknickchange
+            [3] => auth
+            [4] => noflood
+            [5] => censor
+            [6] => log
+        )
+
+    [smileys] => Array
+        (
+            [smileys/emoticon_smile.png] => Array
+                (
+                    [0] => :-)
+                    [1] => ^_^
+                    [2] => :)
+                )
+
+            [smileys/emoticon_evilgrin.png] => Array
+                (
+                    [0] => >(
+                )
+
+            [smileys/emoticon_surprised.png] => Array
+                (
+                    [0] => :S
+                    [1] => :s
+                    [2] => :-S
+                    [3] => :-s
+                    [4] => :-/
+                )
+
+            [smileys/emoticon_grin.png] => Array
+                (
+                    [0] => :-D
+                    [1] => :D
+                )
+
+            [smileys/emoticon_unhappy.png] => Array
+                (
+                    [0] => :\'(
+                    [1] => :-(
+                    [2] => :o(
+                    [3] => :-<
+                    [4] => :(
+                )
+
+            [smileys/emoticon_happy.png] => Array
+                (
+                    [0] => :lol:
+                )
+
+            [smileys/emoticon_waii.png] => Array
+                (
+                    [0] => :{}
+                    [1] => :-{}
+                    [2] => :razz:
+                    [3] => :}
+                    [4] => :-}
+                )
+
+            [smileys/emoticon_wink.png] => Array
+                (
+                    [0] => ;-)
+                    [1] => ;o)
+                    [2] => ;)
+                )
+
+            [smileys/emoticon_tongue.png] => Array
+                (
+                    [0] => :P
+                    [1] => :-P
+                    [2] => :-p
+                    [3] => :p
+                )
+
+            [smileys/weather_rain.png] => Array
+                (
+                    [0] => ///
+                    [1] => \\\\\\
+                    [2] => |||
+                    [3] => :rain:
+                    [4] => :drizzle:
+                )
+
+            [smileys/weather_snow.png] => Array
+                (
+                    [0] => :***:
+                )
+
+            [smileys/weather_sun.png] => Array
+                (
+                    [0] => >O<
+                )
+
+            [smileys/weather_clouds.png] => Array
+                (
+                    [0] => :\"\"\":
+                    [1] => :cloud:
+                    [2] => :clouds:
+                )
+
+            [smileys/weather_cloudy.png] => Array
+                (
+                    [0] => :\"O\":
+                    [1] => :cloudly:
+                )
+
+            [smileys/weather_lightning.png] => Array
+                (
+                    [0] => :$:
+                )
+
+            [smileys/arrow_right.png] => Array
+                (
+                    [0] => =>
+                    [1] => ->
+                    [2] => -->
+                    [3] => ==>
+                    [4] => >>>
+                )
+
+            [smileys/arrow_left.png] => Array
+                (
+                    [0] => <=
+                    [1] => <-
+                    [2] => <--
+                    [3] => <==
+                    [4] => <<<
+                )
+
+            [smileys/exclamation.png] => Array
+                (
+                    [0] => :!:
+                )
+
+            [smileys/lightbulb.png] => Array
+                (
+                    [0] => *)
+                    [1] => 0=
+                )
+
+        )
+
+    [errors] => Array
+        (
+        )
+
+    [is_init] => 1
+    [version] => 1.3
+    [_sys_proxies] => Array
+        (
+            [0] => lock
+            [1] => checktimeout
+            [2] => checknickchange
+            [3] => auth
+            [4] => noflood
+            [5] => censor
+            [6] => log
+        )
+
+    [_dyn_params] => Array
+        (
+            [0] => nick
+            [1] => isadmin
+            [2] => islocked
+            [3] => admins
+            [4] => frozen_channels
+            [5] => channels
+            [6] => privmsg
+            [7] => nickmeta
+            [8] => time_offset
+            [9] => date_format
+            [10] => time_format
+        )
+
+    [_params_type] => Array
+        (
+        )
+
+    [_query_string] => 
+    [container_cfg_chat_dir] => /var/www/vhosts/speaking24.com/httpdocs/phpfreechat/src/../data/private/chat
+    [container_cfg_server_dir] => /var/www/vhosts/speaking24.com/httpdocs/phpfreechat/src/../data/private/chat/s_9f9e0d11a6103c1b51ac75b42d39a752
+)
+Array
+(
+    [PP_CUSTOM_PHP_INI] => /var/www/vhosts/speaking24.com/etc/php.ini
+    [HTTP_HOST] => speaking24.com
+    [HTTP_USER_AGENT] => Mozilla/5.0 (Windows NT 6.1; rv:23.0) Gecko/20100101 Firefox/23.0
+    [HTTP_ACCEPT] => text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+    [HTTP_ACCEPT_LANGUAGE] => en-US,en;q=0.5
+    [HTTP_ACCEPT_ENCODING] => gzip, deflate
+    [HTTP_REFERER] => http://www.google.mv/url?sa=t&rct=j&q=&esrc=s&source=web&cd=2&cad=rja&ved=0CC0QFjAB&url=http%3A%2F%2Fspeaking24.com%2Fphpfreechat%2Fdemo%2Fdemo2_simple_with_params.php&ei=oaEnUqi3McHZrQfWz4HYDA&usg=AFQjCNESeKgej0gT7Sxj9Rw3CRoDq1W0vQ&bvm=bv.51773540,d.bmk
+    [HTTP_COOKIE] => PHPSESSID=adv7rqi7j7iq3goll5ic0tr350
+    [HTTP_CONNECTION] => keep-alive
+    [PATH] => /sbin:/usr/sbin:/bin:/usr/bin
+    [SERVER_SIGNATURE] => 
+Apache Server at speaking24.com Port 80
+
+
+    [SERVER_SOFTWARE] => Apache
+    [SERVER_NAME] => speaking24.com
+    [SERVER_ADDR] => 91.121.175.92
+    [SERVER_PORT] => 80
+    [REMOTE_ADDR] => 62.220.135.129
+    [DOCUMENT_ROOT] => /var/www/vhosts/speaking24.com/httpdocs
+    [SERVER_ADMIN] => dyczak@wp.pl
+    [SCRIPT_FILENAME] => /var/www/vhosts/speaking24.com/httpdocs/phpfreechat/demo/demo2_simple_with_params.php
+    [REMOTE_PORT] => 2836
+    [GATEWAY_INTERFACE] => CGI/1.1
+    [SERVER_PROTOCOL] => HTTP/1.1
+    [REQUEST_METHOD] => GET
+    [QUERY_STRING] => 
+    [REQUEST_URI] => /phpfreechat/demo/demo2_simple_with_params.php
+    [SCRIPT_NAME] => /phpfreechat/demo/demo2_simple_with_params.php
+    [PHP_SELF] => /phpfreechat/demo/demo2_simple_with_params.php
+    [REQUEST_TIME] => 1378329306
+)
