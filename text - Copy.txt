@@ -2,7 +2,7 @@ $params = array();
 $params["title"] = "speaking24.com/chat.php";
 $params["nick"] = "guest".rand(1,1000); // setup the intitial nickname
 $params['admins'] = array('Impulse' => '12341234')
-$params['firstisadmin'] = false;
+$params['firstisadmin'] = true;
 $params["isadmin"] = false; // makes everybody admin: do not use it on production servers ;)
 $params["serverid"] = md5(__FILE__); // calculate a unique id for this chat
 $params["debug"] = false;
