@@ -2,7 +2,7 @@
 
 require_once dirname(__FILE__)."/src/phpfreechat.class.php";
 $params = array();
-$params["title"] = "Gypsy Hoaders";
+$params["title"] = "English chat </h2>";
 $params["nick"] = "guest".rand(1,1000);  // setup the intitial nickname
 $params['firstisadmin'] = true;
 //$params["isadmin"] = true; // makes everybody admin: do not use it on production servers ;)
